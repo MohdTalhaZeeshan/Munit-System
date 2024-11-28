@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="cd1066a6-0c4f-4299-a995-d6e814d6317a" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="12345" database="mydb" />
+	</db:config>
+	<sub-flow name="products-sys-api-implSub_Flow-get-sys" doc:id="8f24f6a7-739d-40cf-858d-41046767e1db" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="aea7f944-78b8-442f-9708-92155e5990da" message="Start Logger"/>
+		<db:select doc:name="Select" doc:id="d032be32-00ac-4b80-b343-b4d87f0331d9" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM PRODUCTS;]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="6d6bbe73-0788-47c0-95d2-954a438bc169" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger" doc:id="298d0b1e-c9ba-4500-adfd-3c0d860bb904" message="End Logger"/>
+	</sub-flow>
+</mule>

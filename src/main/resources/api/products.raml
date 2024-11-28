@@ -1,0 +1,64 @@
+#%RAML 1.0
+title: Products
+
+types:
+  product:
+    type: object
+    properties:
+      id:
+        type: integer
+        required: false
+      name:
+        type: string
+        required: true
+      price:
+        type: number
+        required: true
+
+/products:
+  description: Manage products in the system
+  get:
+   description: Retrieve a list of all products from Database
+   responses:
+    200:
+     body:
+      application/json:
+        type: product[]
+        example: |
+             [
+                {
+                  "name": "Product A",
+                  "price": 99.99
+                },
+                {
+                  "name": "Product B",
+                  "price": 149.99
+                }
+              ]
+
+  post:
+    description: Insert a Product into Database
+    body:
+      application/json:
+        type: product
+        example: |
+         {
+            "name": "New Product",
+            "price": 59.99
+          }
+    
+    responses:
+      201:
+        description: Inserted Successfully
+        body:
+          application/json:
+            example: 
+             {
+               "Message" : "Product Inserted Sucessfully"
+             }
+            
+
+            
+        
+          
+      

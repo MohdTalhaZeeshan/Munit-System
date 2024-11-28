@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_8f24f6a7_739d_40cf_858d_41046767e1db_Output_Payload = Array<{  price: Number,   name: String,   id?: Number,   _?: Any}>
+
